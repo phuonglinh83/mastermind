@@ -1,0 +1,50 @@
+#history {
+  font-family: Arial, sans-serif;
+  border-collapse: collapse;
+  width: 60%;
+}
+
+#history td, #history th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#history tr td:first-child {
+  width: 120px;
+}
+
+#history td:hover {border: 3px solid #ddd;}
+
+#history th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.colortab {
+  font-family: Arial, sans-serif;
+  border-collapse: collapse;
+  width: 40%;
+  table-layout: fixed;
+}
+
+.colortab td, .colortab th {
+  border: 2px solid #ddd;
+  padding: 8px;
+  height: 30px;
+  text-align: center;
+}
+
+.colortab td:hover {background-color: #ddd;}
+
+.button {
+    display: flex;
+    justify-content: center;
+    background-color:azure;
+    width: 100px;
+    height: 30px;
+    font-family: Arial, sans-serif;
+}
+

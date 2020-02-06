@@ -26,7 +26,7 @@ python manage.py db init
 python manage.py db migrate
 python manage.py db upgrade
 
-- Game: gameid(int), userid(int), pattern(string), status (string)
+- Game: gameid(int), userid(int), pattern(string), max_guess, status (string)
 - Guess: gameid(int), guess_number(int), guess_value (string), no_correct(int), no_partial_correct(int)
 
 Jobs to do:

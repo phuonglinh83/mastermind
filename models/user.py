@@ -8,10 +8,13 @@ class User(db.Model):
     looses = db.Column(db.Integer)
 
     @classmethod
-    def new_user(cls, userid):
-        user = cls(userid)
-        db.session.add(user)
-        db.session.commit()
+    def new_user(cls, username):
+        user = cls(username)
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except Exception as e:
+            return (str(e))
         return user
 
     def __init__(self, username):

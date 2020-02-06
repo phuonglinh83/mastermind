@@ -1,0 +1,46 @@
+
+<html>
+   <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+      <script type = "text/javascript"
+         src = "{{ url_for('static', filename = 'js/game.js') }}" ></script>
+   </head>
+   <body>
+
+
+
+<!--<canvas id="myCanvas" width="200" height="100"-->
+<!--style="border:1px solid #000000;">-->
+<!--</canvas>-->
+
+
+
+<!--<form action = "/guess" method = "post">-->
+    <input id="gameid" type="hidden" name="gameid" value={{ gameid }}>
+    <!--<input id="code1" type = "text" name = "code1" />-->
+    <!--<input id="code2" type = "text" name = "code2" />-->
+    <!--<input id="code3" type = "text" name = "code3" />-->
+    <!--<input id="code4" type = "text" name = "code4" />-->
+    <!--<input class="button" type = "submit" value = "Guess" />-->
+
+<!--</form>-->
+    <div>
+        <table id="colortable" class="colortab" align="center"> </table>
+    </div>
+<br>
+    <div>
+        <table id="colorinput" class="colortab" align="center"> </table>
+    </div>
+<br>
+<div align="center">
+<button class="button" id="guess" onclick="submitGuess()" disabled="true"> Guess </button>
+</div>
+<br>
+    <div align="center">
+        <table id="history" align="center"> </table>
+    </div>
+
+    </body>
+
+</html>
