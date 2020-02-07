@@ -50,13 +50,13 @@ def game_info(gameid):
     game = Game.query.filter_by(gameid=gameid).first()
     guesses = Guess.query.filter_by(gameid=gameid).all()
     results = game.serialize()
-    guesses_dict = []
+    guess_list = []
     for guess in guesses:
-        guesses_dict.append(guess.serialize())
-    results['guesses'] = guesses_dict
+        guess_list.append(guess.serialize())
+    results['guesses'] = guess_list
     results['num_codes'] = len(game.secret_code)
     # results['guesses'] = [guess.serialize() for guess in guesses]
-    return jsonify(results)
+    return results
 
 @app.route('/guess', methods=['POST'])
 def guess():
@@ -81,21 +81,23 @@ def guess():
 @app.route('/guess2', methods=['POST'])
 def guess2():
     if request.method == 'POST':
-        code1 = request.form['code1']
-        code2 = request.form['code2']
-        code3 = request.form['code3']
-        code4 = request.form['code4']
-        print("gameid: " + request.form['gameid'])
+        # code1 = request.form['code1']
+        # code2 = request.form['code2']
+        # code3 = request.form['code3']
+        # code4 = request.form['code4']
+        print(request.form)
         game_id = int(request.form['gameid'])
-        guess_value = code1 + code2 + code3 + code4
-        guess_number = Guess.query.filter_by(gameid=game_id).count() + 1
+        # guess_value = code1 + code2 + code3 + code4
+        guess_value = request.form['guess_value']
         game = Game.query.filter_by(gameid=game_id).first()
-        guess = Guess.new_guess(game.gameid, guess_number, guess_value, game.secret_code)
-        if guess.no_correct == len(game.secret_code):
-            game.status = "WIN"
-        elif guess.guess_number == game.max_guess:
-            game.status = "LOOSE"
-        db.session.commit()
+        if game.status == "CREATED":
+            guess_number = Guess.query.filter_by(gameid=game_id).count() + 1
+            guess = Guess.new_guess(game.gameid, guess_number, guess_value, game.secret_code)
+            if guess.no_correct == len(game.secret_code):
+                game.status = "WIN"
+            elif guess.guess_number == game.max_guess:
+                game.status = "LOOSE"
+            db.session.commit()
         return redirect('/gameinfo/' + str(game_id))
 
 @app.route('/result', methods=['GET'])
@@ -104,10 +106,10 @@ def result():
     game = Game.query.filter_by(gameid=gameid).first()
     user = User.query.filter_by(userid=game.userid).first()
     if game.status == 'WIN':
-        message = "Congratulations! You won! " + "The word was " + game.secret_code + "."
+        message = "Congratulations! You won! " + "The secret code was " + game.secret_code + "."
         user.win()
     else:
-        message = "You lost! " + "The word was " + game.secret_code + "."
+        message = "You lost! " + "The secret code was " + game.secret_code + "."
         user.lose()
     return render_template('result.html', result_message=message, gameid=gameid)
 
@@ -123,12 +125,6 @@ def get_all_users():
     users = User.query.all()
     users.sort(key=lambda user: -user.wins)
     return jsonify([u.serialize() for u in users])
-#
-# @app.route("/details")
-# def get_book_details():
-#     author=request.args.get('author')
-#     published=request.args.get('published')
-#     return "Author : {}, Published: {}".format(author,published)
 
 
 if __name__ == '__main__':
