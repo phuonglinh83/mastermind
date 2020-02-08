@@ -7,16 +7,28 @@
          src = "{{ url_for('static', filename = 'js/game.js') }}" ></script>
    </head>
    <body>
+   Welcome {{username}} to Mastermind game!
+   <br>
+
+        <input id="2_codes" name="num_codes" class="radio" type="radio" value="2"
+               onclick="selectGame(2)">2 columns <br>
+        <input id="3_codes" name="num_codes" class="radio" type="radio" value="3"
+               onclick="selectGame(3)">3 columns <br>
+        <input id="4_codes" name="num_codes" class="radio" type="radio" value="4" checked
+               onclick="selectGame(4)">4 columns <br>
+       <input id="5_codes" name="num_codes" class="radio" type="radio" value="5"
+               onclick="selectGame(5)">5 columns <br>
+       <input id="6_codes" name="num_codes" class="radio" type="radio" value="6"
+               onclick="selectGame(6)">6 columns <br>
+       <input id="7_codes" name="num_codes" class="radio" type="radio" value="7"
+               onclick="selectGame(7)">7 columns <br>
+   <button class="button" id="new_game" onclick="newGame()" > New Game </button>
 
 
+    <form action = "/logout" method = "get">
+    <p><input style="background-color: blue" class="button" type = "submit" value = "Log out" /></p>
+    </form>
 
-<!--<canvas id="myCanvas" width="200" height="100"-->
-<!--style="border:1px solid #000000;">-->
-<!--</canvas>-->
-
-
-
-<!--<form action = "/guess" method = "post">-->
     <input id="gameid" type="hidden" name="gameid" value={{ gameid }}>
     <!--<input id="code1" type = "text" name = "code1" />-->
     <!--<input id="code2" type = "text" name = "code2" />-->
@@ -24,15 +36,11 @@
     <!--<input id="code4" type = "text" name = "code4" />-->
     <!--<input class="button" type = "submit" value = "Guess" />-->
 
-<!--</form>-->
-    <!--<div>-->
+
         <table id="colortable" class="colortab" align="center"> </table>
-    <!--</div>-->
-<br>
-    <!--<div>-->
+        <br>
         <table id="colorinput" class="colortab" align="center"> </table>
-    <!--</div>-->
-<br>
+        <br>
 <!--<div align="center">-->
 <!--<button class="button" id="guess" onclick="submitGuess()" disabled="true"> Guess </button>-->
 <!--</div>-->

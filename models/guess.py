@@ -14,41 +14,17 @@ class Guess(db.Model):
     def new_guess(cls, gameid, guess_number, guess_value, secret_code):
         no_correct = 0
         no_partial_correct = 0
-        remaining_guesss = []
-        remaining_correct = []
-        for index in range(len(guess_value)):
-            if guess_value[index] == secret_code[index]:
-                no_correct += 1
-            else:
-                remaining_guesss.append(guess_value[index])
-                remaining_correct.append(secret_code[index])
-        for code in remaining_guesss:
-            if code in remaining_correct:
-                no_partial_correct += 1
-                remaining_correct.remove(code)
+        for index1, value1 in enumerate(guess_value):
+            for index2, value2 in enumerate(secret_code):
+                if index1 == index2 and value1 == value2:
+                    no_correct += 1
+                elif value1 == value2:
+                    no_partial_correct +=1
         guess = cls(gameid, guess_number, guess_value, no_correct, no_partial_correct)
         print(guess.serialize())
         db.session.add(guess)
         db.session.commit()
         return guess
-
-    # @classmethod
-    # def new_guess(cls, gameid, guess_number, guess_value, secret_code):
-    #     no_correct = 0
-    #     no_partial_correct = 0
-    #     remaining_guesss = []
-    #     remaining_correct = []
-    #     for index in range(len(guess_value)):
-    #         if guess_value[index] == secret_code[index]:
-    #             no_correct += 1
-    #         else:
-    #             remaining_guesss.append(guess_value[index])
-    #             remaining_correct.append()
-    #     guess = cls(gameid, guess_number, guess_value, no_correct, no_partial_correct)
-    #     print(guess.serialize())
-    #     db.session.add(guess)
-    #     db.session.commit()
-    #     return guess
 
     def guess(self, secret_code):
         self.no_correct = 0

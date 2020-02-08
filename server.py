@@ -9,8 +9,8 @@ from models.user import User
 def home():
     cookie_userid = request.cookies.get('userid')
     if cookie_userid:
-        username = User.query.filter_by(userid=cookie_userid).first().username
-        return render_template('index.html', username=username)
+        # username = User.query.filter_by(userid=cookie_userid).first().username
+        return redirect("/new_game")
     else:
         return render_template('login.html')
 
@@ -22,7 +22,8 @@ def login():
     user = User.query.filter_by(username=name).first()
     if not user:
         user = User.new_user(name)
-    resp = make_response(render_template('index.html', username=name))
+    resp = make_response(redirect("/new_game"))
+    # resp = make_response(render_template('index.html', username=name))
     resp.set_cookie('userid', str(user.userid))
     return resp
 
@@ -39,11 +40,21 @@ def new_game():
     game = Game.new_game(userid=userid)
     return redirect('/game/' + str(game.gameid))
 
+@app.route('/new_game2', methods=['POST'])
+def new_game2():
+    userid = request.cookies.get('userid')
+    num_code = request.form['num_code']
+    game = Game.new_game(userid=userid, num_code=num_code)
+    print("MMMMMMMM", game.secret_code)
+    return redirect('/gameinfo/' + str(game.gameid))
+
+
 @app.route('/game/<gameid>', methods=['GET'])
 def get_game(gameid):
     game = Game.query.filter_by(gameid=gameid).first()
     guesses = Guess.query.filter_by(gameid=gameid).all()
-    return render_template("game.html", gameid=game.gameid, guesses=guesses)
+    user = User.query.filter_by(userid=game.userid).first()
+    return render_template("game.html", gameid=game.gameid, guesses=guesses, username=user.username)
 
 @app.route('/gameinfo/<gameid>', methods=['get'])
 def game_info(gameid):
@@ -55,6 +66,7 @@ def game_info(gameid):
         guess_list.append(guess.serialize())
     results['guesses'] = guess_list
     results['num_codes'] = len(game.secret_code)
+    del results['secret_code']
     # results['guesses'] = [guess.serialize() for guess in guesses]
     return results
 
@@ -89,6 +101,7 @@ def guess2():
         game_id = int(request.form['gameid'])
         # guess_value = code1 + code2 + code3 + code4
         guess_value = request.form['guess_value']
+        print("guess value:" + guess_value)
         game = Game.query.filter_by(gameid=game_id).first()
         if game.status == "CREATED":
             guess_number = Guess.query.filter_by(gameid=game_id).count() + 1

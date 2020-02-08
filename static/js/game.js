@@ -1,4 +1,23 @@
+function selectGame(num_code) {
+    $.post('/new_game2',
+        {num_code:num_code},
+        function(data, status) {
+            console.log(data);
+            var gameinfo = JSON.parse(data);
+            $('#gameid').val(gameinfo.gameid);
+            $('input[name="num_codes"]').attr("disabled", false)
+            render_game(gameinfo, true);
+        });
+}
+
+function newGame() {
+    var num_codes = $("#colorinput").children('tbody').children('tr').children('td').length;
+    return selectGame(num_codes);
+
+}
+
 function submitGuess() {
+    $('input[name="num_codes"]').attr("disabled", true)
     gameid = $("#gameid").val();
     var guess_value = "";
     var num_codes = $("#colorinput").children('tbody').children('tr').children('td').length;

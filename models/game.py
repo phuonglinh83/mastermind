@@ -14,7 +14,7 @@ class Game(db.Model):
 
 
     @classmethod
-    def new_game(cls, userid, max_guess = 10, num_code = 4):
+    def new_game(cls, userid, max_guess = 10, num_code=4):
         game = cls(userid, max_guess, num_code)  # create game object
         db.session.add(game)
         db.session.commit()
@@ -46,14 +46,14 @@ class Game(db.Model):
             'max_guess': self.max_guess,
             'status': self.status,
         }
-
-    def game_over(self):
-        return self.is_winning() or self.is_losing()
-
-    def is_winning(self):
-        return (id(self.secret_code) == id(guess.guess_value))
-
-    def is_losing(self):
-        return (self.max_guess == guess.guess_number and guess.no_of_correct != self.max_number)
+    #
+    # def game_over(self):
+    #     return self.is_winning() or self.is_losing()
+    #
+    # def is_winning(self):
+    #     return (id(self.secret_code) == id(guess.guess_value))
+    #
+    # def is_losing(self):
+    #     return (self.max_guess == guess.guess_number and guess.no_of_correct != self.max_number)
 
 

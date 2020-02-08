@@ -6,7 +6,7 @@
 
 #history td, #history th {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 4px;
   text-align: center;
 }
 
@@ -32,7 +32,7 @@
 
 .colortab td, .colortab th {
   border: 2px solid #ddd;
-  padding: 8px;
+  padding: 2px;
   height: 30px;
   text-align: center;
 }
