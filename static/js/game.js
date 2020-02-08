@@ -11,18 +11,35 @@ function selectGame(num_code) {
 }
 
 function newGame() {
-    var num_codes = $("#colorinput").children('tbody').children('tr').children('td').length;
-    return selectGame(num_codes);
+    return selectGame(game_size());
+}
 
+function playRandom() {
+    var num_code = game_size();
+    for (i=1; i< num_code +1; i++) {
+        setInput(i, Math.floor(Math.random() * 7), num_code)
+    }
+}
+
+function getHint() {
+     gameid = $("#gameid").val();
+     $.get("/gameinfo/" + gameid,
+        function(data, status) {
+            var gameinfo = JSON.parse(data);
+            code_length = gameinfo.secret_code.length
+            random_hint_index = Math.floor(Math.random() * code_length);
+            setInput(random_hint_index + 1, gameinfo.secret_code[random_hint_index], code_length)
+            $('#get_hint').attr("disabled", true)
+        });
 }
 
 function submitGuess() {
     $('input[name="num_codes"]').attr("disabled", true)
     gameid = $("#gameid").val();
     var guess_value = "";
-    var num_codes = $("#colorinput").children('tbody').children('tr').children('td').length;
+    var num_codes = game_size();
     for (var i = 1; i < num_codes + 1; i++) {
-        guess_value += $('#code' + i).html()
+        guess_value += $('#cell_0_' + i).html()
     }
 //    code1 = $('#code1').html();
 //    code2 = $('#code2').html();
@@ -42,6 +59,12 @@ function submitGuess() {
             var gameinfo = JSON.parse(data);
             render_game(gameinfo, true);
         });
+}
+
+function game_size() {
+    var totalCells = $("#colortable").children('tbody').children('tr').children('td').length;
+    var totalRows = $("#colortable").children('tbody').children('tr').length;
+    return totalCells  / totalRows;
 }
 
 color_map = {
@@ -129,10 +152,11 @@ function render_game(gameinfo, redirect) {
         $("#history").append(rowToAppend);
     });
 
+    // Create empty rows for remaining guesses
     for (var i = 0; i < gameinfo.max_guess - gameinfo.guesses.length; i++) {
         var rowToAppend = `<tr> <td> ${i + 1 + gameinfo.guesses.length} </td>`;
         for (var j = 0; j < 2 * gameinfo.num_codes; j++) {
-            rowToAppend += "<td> </td>"
+            rowToAppend += `<td id='cell_${i}_${j+1}'> </td>`;
         }
         rowToAppend += "</tr>";
          $("#history").append(rowToAppend);
@@ -140,13 +164,16 @@ function render_game(gameinfo, redirect) {
 }
 
 function setInput(index, code, num_codes) {
-    $("#code" + index).html(code);
-    $("#code" + index).css("background-color", color_map[code]);
+    $("#cell_0_" + index).html(code);
+    $("#cell_0_" + index).css("background-color", color_map[code]);
+
+//    $("#code" + index).html(code);
+//    $("#code" + index).css("background-color", color_map[code]);
 
     // Check if we can enable guess button
     var enabled = true;
     for (var i = 1; i < num_codes + 1; i++) {
-        if ($.trim($("#code" + i).html()) == '') { // check if the cell is empty
+        if ($.trim($("#cell_0_" + i).html()) == '') { // check if the cell is empty
             enabled = false;
             break;
         }

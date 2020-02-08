@@ -66,7 +66,7 @@ def game_info(gameid):
         guess_list.append(guess.serialize())
     results['guesses'] = guess_list
     results['num_codes'] = len(game.secret_code)
-    del results['secret_code']
+    # del results['secret_code']
     # results['guesses'] = [guess.serialize() for guess in guesses]
     return results
 
