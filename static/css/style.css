@@ -1,22 +1,22 @@
-#history {
+.mastermindtable {
   font-family: Arial, sans-serif;
   border-collapse: collapse;
   width: 60%;
 }
 
-#history td, #history th {
+.mastermindtable td, .mastermindtable th {
   border: 1px solid #ddd;
   padding: 4px;
   text-align: center;
 }
 
-#history tr td:first-child {
+.mastermindtable tr td:first-child {
   width: 120px;
 }
 
-#history td:hover {border: 3px solid #ddd;}
+.mastermindtable td:hover {border: 3px solid #ddd;}
 
-#history th {
+.mastermindtable th {
   padding-top: 12px;
   padding-bottom: 12px;
   background-color: #4CAF50;

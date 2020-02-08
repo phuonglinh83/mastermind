@@ -127,6 +127,18 @@ def result():
     return render_template('result.html', result_message=message, gameid=gameid)
 
 
+@app.route('/scores', methods=['GET'])
+def scores():
+    users = User.query.all()
+    users.sort(key=lambda user: -user.wins)
+    return jsonify([u.serialize() for u in users])
+
+@app.route('/score', methods=['GET'])
+def score():
+    users = User.query.all()
+    users.sort(key=lambda user: -user.wins)
+    return render_template('score.html', users=users)
+
 @app.route("/user/<userid>")
 def get_user(userid):
     user = User.query.filter_by(userid=int(userid)).first()

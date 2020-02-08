@@ -1,0 +1,32 @@
+<html>
+   <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+      <script type = "text/javascript"
+         src = "{{ url_for('static', filename = 'js/score.js') }}" ></script>
+   </head>
+
+   <body>
+   <div>
+      <table id="scores" class="mastermindtable" align="center">
+<!--         <tr>-->
+<!--            <th>User name</th>-->
+<!--            <th>Wins</th>-->
+<!--            <th>Loses</th>-->
+<!--         </tr>-->
+
+<!--         {% for row in records %}-->
+<!--            <tr>-->
+<!--               <td> {{ row[0] }} </td>-->
+<!--               <td> {{ row[1] }} </td>-->
+<!--               <td> {{ row[2] }} </td>-->
+<!--            </tr>-->
+<!--         {% endfor %}-->
+      </table>
+<!--      <div id="test"></div>-->
+<!--      <button onclick="loadScore()">Refresh</button>-->
+   </div>
+   </body>
+
+</html>
+
