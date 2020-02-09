@@ -15,14 +15,23 @@
 
    <div class="content">
 
-
       <p>
       <h1 style="color:red">{{ result_message }}</h1>
       </p>
 
-   </div>
+      <form action = "/new_game" method = "get">
+      <p><input class="button" type = "submit" value = "Play again" /></p>
+      </form>
 
-   <div>
+      <form action = "/score" method = "get">
+         <input class="button" type = "submit" value = "Score Board" />
+      </form>
+
+      <form action = "/logout" method = "get">
+         <input class="button" type = "submit" value = "Log out" />
+      </form>
+
+
    <table id="history" class="mastermindtable" align="center"/></table>
    </div>
 

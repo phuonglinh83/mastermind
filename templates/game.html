@@ -8,7 +8,7 @@
    </head>
    <body>
        <input id="gameid" type="hidden" name="gameid" value={{ gameid }}>
-       <h2 style="color:blue"> Welcome {{username}} to Mastermind game! </h2>
+       <h2> Welcome {{username}} to Mastermind game! </h2>
 
        <div class="container">
             <div class="left child">
@@ -19,7 +19,7 @@
                            onclick="selectGame(2)">2 columns <br>
                     <input id="3_codes" name="num_codes" class="radio" type="radio" value="3"
                            onclick="selectGame(3)">3 columns <br>
-                    <input id="4_codes" name="num_codes" class="radio" type="radio" value="4" checked
+                    <input id="4_codes" name="num_codes" class="radio" type="radio" value="4"
                            onclick="selectGame(4)">4 columns <br>
                     <input id="5_codes" name="num_codes" class="radio" type="radio" value="5"
                            onclick="selectGame(5)">5 columns <br>
@@ -45,7 +45,8 @@
                 <div class="firsttab">
                     <table id="colortable" class="colortab"> </table>
                 </div>
-                <div id="timer" align="center"></div>
+                <br>
+                <div id="timer" style="color:red" align="center">Remaining time: </div>
                 <br>
                 <!--<br>-->
                 <!--<table id="colorinput" class="colortab" align="center"> </table>-->
