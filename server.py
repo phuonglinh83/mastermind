@@ -118,8 +118,9 @@ def score():
 @app.route('/timeout/<gameid>', methods=['POST'])
 def timeout(gameid):
     game = Game.query.filter_by(gameid=gameid).first()
-    game.status = "LOOSE"
-    db.session.commit()
+    if game.status == 'CREATERD':
+        game.status = "LOOSE"
+        db.session.commit()
     return redirect('/gameinfo/' + str(game.gameid))
 
 
