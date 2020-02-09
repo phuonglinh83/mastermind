@@ -1,40 +1,29 @@
 
-- Install postgres
-On Linux: sudo apt-get install postgresql postgresql-contrib
-On Mac:
-- Create database:
-createdb mastermind
+# Dev setups
+## Prerequites
+Need following software installed on the machine:
+* Postgres 12
+* Python 3
+## Install requirements
+`pip install -r requirements.txt`
+## Setup database
+* Create database:
 
-- Install virtualenv:
-pip install virtualenv
+`createdb mastermind`
+* Migrate database:
 
-- Create virtual env:
-virtualenv env
+`python manage.py db init`
 
-- Activate virtual env:
-source env/bin/activate
+`python manage.py db migrate`
 
-- Isntall flask:
-pip install flask
-pip install flask_sqlalchemy
-pip install flask_script
-pip install flask_migrate
-pip install psycopg2-binary
+`python manage.py db upgrade`
 
-- Migrate db:
-python manage.py db init
-python manage.py db migrate
-python manage.py db upgrade
+## Setup enviroment
+`export APP_SETTINGS="config.DevelopmentConfig"`
 
-- Game: gameid(int), userid(int), pattern(string), max_guess, status (string)
-- Guess: gameid(int), guess_number(int), guess_value (string), no_correct(int), no_partial_correct(int)
+`export DATABASE_URL="postgresql://localhost/mastermind"`
 
-Jobs to do:
-- Log in page
-- Home page/menu
-- Game page:
-  + Dislay all guesses
-  + keyboard to enter guess and submit post request to guess
-  + server: route guess: use guess value and game answer to compute no correct and partial correct\
-  + Get result, refresh display guesses
+# Start the server
+`python server.py`
 
+On web browser, open http://localhost:5000/
