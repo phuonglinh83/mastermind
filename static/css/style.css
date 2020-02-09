@@ -18,6 +18,12 @@ h1, h2, h3 {
   color:#348700;
 }
 
+.rainbow_text {
+  background-image: linear-gradient(to right, red, red, orange , yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .radio-group {
   color:#348700
 }
@@ -95,7 +101,7 @@ h1, h2, h3 {
     background-color: #4CAF50;
     border: none;
     color: white;
-    padding: 5px 12px;
+    padding: 8px 12px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -104,7 +110,7 @@ h1, h2, h3 {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
-    width: 140px;
+    width: 142px;
 }
 
 .button:hover {
@@ -114,5 +120,9 @@ h1, h2, h3 {
 .radio-group {
     left: 10%;
     padding: 5px 12px;
+}
+
+.row-buttons {
+    display: inline;
 }
 

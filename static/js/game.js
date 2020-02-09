@@ -2,8 +2,7 @@ function selectGame(num_code) {
     $.post('/new_game2',
         {num_code:num_code},
         function(data, status) {
-            var gameinfo = JSON.parse(data);
-            $(location).attr('href', '/game/' + gameinfo.gameid);
+            $(location).attr('href', '/game/' + data);
 //            console.log(data);
 //            var gameinfo = JSON.parse(data);
 //            $('#gameid').val(gameinfo.gameid);
@@ -31,7 +30,7 @@ function getHint() {
             code_length = gameinfo.secret_code.length
             random_hint_index = Math.floor(Math.random() * code_length);
             setInput(random_hint_index + 1, gameinfo.secret_code[random_hint_index], code_length)
-//            $('#get_hint').attr("disabled", true)
+            $('#get_hint').attr("disabled", true)
         });
 }
 
@@ -64,13 +63,14 @@ function submitGuess() {
 }
 
 function game_size() {
-    var totalCells = $("#colortable").children('tbody').children('tr').children('td').length;
-    var totalRows = $("#colortable").children('tbody').children('tr').length;
-    return totalCells  / totalRows;
+//    var totalCells = $("#colortable").children('tbody').children('tr').children('td').length;
+//    var totalRows = $("#colortable").children('tbody').children('tr').length;
+//    return totalCells  / totalRows;
+    return $("#history").children('tbody').children('tr').children('th').length - 2;
 }
 
 color_map = {
-    "0": "pink",
+    "0": "violet",
     "1": "blue",
     "2": "red",
     "3": "green",
@@ -87,6 +87,8 @@ function render_game(gameinfo) {
     }
 
     expiredTime = new Date(gameinfo.expired).getTime();
+
+    $("#" + gameinfo.num_codes + "_codes").attr("checked", true);
 
     // Disable guess button
 //    $("#guess").attr("disabled", true);

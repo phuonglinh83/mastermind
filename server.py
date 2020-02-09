@@ -33,29 +33,31 @@ def logout():
     resp.set_cookie('userid', expires=0)
     return resp
 
-
+# Creates a new game and redirects to the game html page for the new game
 @app.route('/new_game', methods=['GET'])
 def new_game():
     userid = request.cookies.get('userid')
     game = Game.new_game(userid=userid)
     return redirect('/game/' + str(game.gameid))
 
+# Creates a new game and returns game id of that game
 @app.route('/new_game2', methods=['POST'])
 def new_game2():
     userid = request.cookies.get('userid')
     num_code = request.form['num_code']
+    print("AAAA:" + num_code)
     game = Game.new_game(userid=userid, num_code=num_code)
-    print("MMMMMMMM", game.secret_code)
-    return redirect('/gameinfo/' + str(game.gameid))
+    return str(game.gameid)
 
-
+# Returns the game html page page
 @app.route('/game/<gameid>', methods=['GET'])
 def get_game(gameid):
     game = Game.query.filter_by(gameid=gameid).first()
-    guesses = Guess.query.filter_by(gameid=gameid).all()
+    # guesses = Guess.query.filter_by(gameid=gameid).all()
     user = User.query.filter_by(userid=game.userid).first()
-    return render_template("game.html", gameid=game.gameid, guesses=guesses, username=user.username)
+    return render_template("game.html", gameid=game.gameid, username=user.username)
 
+# Returns a gameinfo JSON object, including game and guesses, so that browser can render the game
 @app.route('/gameinfo/<gameid>', methods=['get'])
 def game_info(gameid):
     game = Game.query.filter_by(gameid=gameid).first()
@@ -129,15 +131,16 @@ def result():
 
 @app.route('/scores', methods=['GET'])
 def scores():
-    users = User.query.all()
-    users.sort(key=lambda user: -user.wins)
+    users = User.query.order_by(User.wins.desc()).limit(10)
+    # users.sort(key=lambda user: -user.wins)
     return jsonify([u.serialize() for u in users])
 
 @app.route('/score', methods=['GET'])
 def score():
-    users = User.query.all()
-    users.sort(key=lambda user: -user.wins)
-    return render_template('score.html', users=users)
+    # users = User.query.all()
+    # users.sort(key=lambda user: -user.wins)
+    return render_template('score.html')
+
 
 @app.route('/timeout/<gameid>', methods=['POST'])
 def timeout(gameid):
