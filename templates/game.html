@@ -16,17 +16,17 @@
                 <br>
                 <div class="radio-group">
                     <input id="2_codes" name="num_codes" class="radio" type="radio" value="2"
-                           onclick="selectGame(2)">2 columns <br>
+                           onclick="createGame(2)">2 columns <br>
                     <input id="3_codes" name="num_codes" class="radio" type="radio" value="3"
-                           onclick="selectGame(3)">3 columns <br>
+                           onclick="createGame(3)">3 columns <br>
                     <input id="4_codes" name="num_codes" class="radio" type="radio" value="4"
-                           onclick="selectGame(4)">4 columns <br>
+                           onclick="createGame(4)">4 columns <br>
                     <input id="5_codes" name="num_codes" class="radio" type="radio" value="5"
-                           onclick="selectGame(5)">5 columns <br>
+                           onclick="createGame(5)">5 columns <br>
                     <input id="6_codes" name="num_codes" class="radio" type="radio" value="6"
-                           onclick="selectGame(6)">6 columns <br>
+                           onclick="createGame(6)">6 columns <br>
                     <input id="7_codes" name="num_codes" class="radio" type="radio" value="7"
-                           onclick="selectGame(7)">7 columns <br>
+                           onclick="createGame(7)">7 columns <br>
                 </div>
 
 
@@ -37,21 +37,12 @@
             </div>
 
             <div class="center child">
-        <!--<input id="code1" type = "text" name = "code1" />-->
-        <!--<input id="code2" type = "text" name = "code2" />-->
-        <!--<input id="code3" type = "text" name = "code3" />-->
-        <!--<input id="code4" type = "text" name = "code4" />-->
-        <!--<input class="button" type = "submit" value = "Guess" />-->
                 <div class="firsttab">
                     <table id="colortable" class="colortab"> </table>
                 </div>
                 <br>
                 <div id="timer" style="color:red" align="center">Remaining time: </div>
                 <br>
-                <!--<br>-->
-                <!--<table id="colorinput" class="colortab" align="center"> </table>-->
-                <!--<br>-->
-    <!--<button class="button" id="guess" onclick="submitGuess()" disabled="true"> Guess </button>-->
                 <table id="history" class="mastermindtable"> </table>
             </div>
 

@@ -30,10 +30,6 @@ class Game(db.Model):
         contents = urllib.request.urlopen("https://www.random.org/integers/?num=" + str(num_code)
                                           + "&min=0&max=7&col=1&base=10&format=plain&rnd=new").read()
         codes = [i for i in str(contents) if i.isdigit()]
-        # codes = ['1', '2', '1', '2']
-        #
-        # for i in range(num_code):
-        #     codes.append(str(i + 1))
         self.secret_code = "".join(codes)
         now = datetime.now()
         self.expired = str(now + timedelta(seconds=1800, microseconds=-now.microsecond))
@@ -51,14 +47,5 @@ class Game(db.Model):
             'status': self.status,
             'expired': self.expired
         }
-    #
-    # def game_over(self):
-    #     return self.is_winning() or self.is_losing()
-    #
-    # def is_winning(self):
-    #     return (id(self.secret_code) == id(guess.guess_value))
-    #
-    # def is_losing(self):
-    #     return (self.max_guess == guess.guess_number and guess.no_of_correct != self.max_number)
 
 

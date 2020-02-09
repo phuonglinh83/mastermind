@@ -21,7 +21,6 @@ class Guess(db.Model):
                 elif value1 == value2:
                     no_partial_correct += 1
         guess = cls(gameid, guess_number, guess_value, no_correct, no_partial_correct)
-        print(guess.serialize())
         db.session.add(guess)
         db.session.commit()
         return guess

@@ -10,11 +10,8 @@ class User(db.Model):
     @classmethod
     def new_user(cls, username):
         user = cls(username)
-        try:
-            db.session.add(user)
-            db.session.commit()
-        except Exception as e:
-            return (str(e))
+        db.session.add(user)
+        db.session.commit()
         return user
 
     def __init__(self, username):

@@ -8,20 +8,8 @@ function loadScore() {
             <th>Wins</th>
             <th>Loses</th>
          </tr>`);
-//        alert("Data: " + data + "\nStatus: " + status);
-//        scores.forEach(function(user) {
-//        const rowToAppend = `
-//            <tr>
-//               <td> ${user.username} </td>
-//               <td> ${user.username} </td>
-//               <td> ${user.wins} </td>
-//               <td> ${user.looses} </td>
-//            </tr>
-//        `;
-//            $("#scores").append(rowToAppend);
-//        });
 
-        for(i = 0; i < scores.length; i++) {
+        for (i = 0; i < scores.length; i++) {
         const rowToAppend = `
             <tr>
                <td> ${i + 1} </td>

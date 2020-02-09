@@ -2,7 +2,6 @@
 <html>
    <head>
       <link rel="stylesheet" href="{{ url_for('static', filename='css/firework.css') }}">
-      <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">-->
       <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
       <script type = "text/javascript"
@@ -11,27 +10,22 @@
 
 
    <body>
-   <input id="gameid" type="hidden" name="gameid" value={{ gameid }}>
+      <input id="gameid" type="hidden" name="gameid" value={{ gameid }}>
+      <div class="content">
+         <p>
+            <h1 style="color:red">{{ result_message }}</h1>
+         </p>
+         <button class="button row-buttons" id="new_game" onclick="newGame()" > Play again </button>
+         <form class="row-buttons" action = "/score" method = "get">
+            <input class="button" type = "submit" value = "Score Board" />
+         </form>
+         <form class="row-buttons" action = "/logout" method = "get">
+            <input class="button" type = "submit" value = "Log out" />
+         </form>
 
-   <div class="content">
-
-      <p>
-      <h1 style="color:red">{{ result_message }}</h1>
-      </p>
-
-      <button class="button row-buttons" id="new_game" onclick="newGame()" > Play again </button>
-
-      <form class="row-buttons" action = "/score" method = "get">
-         <input class="button" type = "submit" value = "Score Board" />
-      </form>
-
-      <form class="row-buttons" action = "/logout" method = "get">
-         <input class="button" type = "submit" value = "Log out" />
-      </form>
-
-      <br> <br>
-   <table id="history" class="mastermindtable" align="center"/></table>
-   </div>
+         <br> <br>
+         <table id="history" class="mastermindtable" align="center"/></table>
+      </div>
 
    {% if "Congratulations!" in result_message %}
       <div id="before"></div>
@@ -58,11 +52,6 @@
       <div id="bstar9"/></div>
       <div id="bstar10"/></div>
       {% endif %}
-
-
-
-
-
    </body>
 </html>
 

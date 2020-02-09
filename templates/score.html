@@ -7,37 +7,19 @@
    </head>
 
    <body>
-   <div class="content">
-   <h1 class="rainbow_text"> SCORE BOARD </h1>
+      <div class="content">
+         <h1 class="rainbow_text"> SCORE BOARD </h1>
+         <form class="row-buttons" action = "/new_game" method = "get">
+            <input class="button" type = "submit" value = "Play again" />
+         </form>
 
-      <form class="row-buttons" action = "/new_game" method = "get">
-         <input class="button" type = "submit" value = "Play again" />
-      </form>
+         <form class="row-buttons" action = "/logout" method = "get">
+            <input class="button" type = "submit" value = "Log out" />
+         </form>
 
-      <form class="row-buttons" action = "/logout" method = "get">
-         <input class="button" type = "submit" value = "Log out" />
-      </form>
-
-      <br> <br>
-   <div>
-      <table id="scores" class="mastermindtable" align="center">
-<!--         <tr>-->
-<!--            <th>User name</th>-->
-<!--            <th>Wins</th>-->
-<!--            <th>Loses</th>-->
-<!--         </tr>-->
-
-<!--         {% for row in records %}-->
-<!--            <tr>-->
-<!--               <td> {{ row[0] }} </td>-->
-<!--               <td> {{ row[1] }} </td>-->
-<!--               <td> {{ row[2] }} </td>-->
-<!--            </tr>-->
-<!--         {% endfor %}-->
-      </table>
-<!--      <div id="test"></div>-->
-<!--      <button onclick="loadScore()">Refresh</button>-->
-   </div>
+         <br> <br>
+         <table id="scores" class="mastermindtable" align="center"></table>
+      </div>
    </body>
 
 </html>

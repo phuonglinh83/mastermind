@@ -1,68 +1,71 @@
-body
-{
+body {
     background-color: #8FBC8F;
     font-family:Arial, sans-serif;
 }
 
 .content {
-  max-width: 900px;
-  margin: auto;
-  background: white;
-  padding: 50px;
-  text-align: center;
-  font-family:Arial, sans-serif;
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 50px;
+    text-align: center;
+    font-family:Arial, sans-serif;
 }
 
 h1, h2, h3 {
-  text-align: center;
-  color:#348700;
+    text-align: center;
+    color:#348700;
 }
 
 .rainbow_text {
-  background-image: linear-gradient(to right, red, red, orange , yellow, green, cyan, blue, violet);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(to right, red, red, orange , yellow, green, cyan, blue, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .radio-group {
-  color:#348700
+    color:#348700
 }
 .mastermindtable {
-  font-family: Arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
 }
 
 .mastermindtable td, .mastermindtable th {
-  border: 1px solid #ddd;
-  padding: 4px;
-  text-align: center;
+    border: 1px solid #ddd;
+    padding: 4px;
+    text-align: center;
 }
 
-.mastermindtable tr:nth-child(even){background-color: #f2f2f2;}
+.mastermindtable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
 .mastermindtable tr td:first-child {
-  width: 15%;
+    width: 15%;
 }
 
 .mastermindtable tr th:last-child {
-  width: 20%;
+    width: 20%;
 }
 
-.mastermindtable td:hover {border: 3px solid #ddd;}
+.mastermindtable td:hover {
+    border: 3px solid #ddd;
+}
 
 .mastermindtable th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  background-color: #4CAF50;
-  color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
 }
 
 .colortab {
-  font-family: Arial, sans-serif;
-  border-collapse: collapse;
-  width: 76%;
-  table-layout: fixed;
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 76%;
+    table-layout: fixed;
 }
 
 .firsttab {
@@ -70,17 +73,20 @@ h1, h2, h3 {
 }
 
 .colortab td, .colortab th {
-  border: 2px solid #ddd;
-  padding: 2px;
-  height: 30px;
-  text-align: center;
+    border: 2px solid #ddd;
+    padding: 2px;
+    height: 30px;
+    text-align: center;
 }
 
-.colortab td:hover {background-color: #ddd;}
+.colortab td:hover {
+    background-color: #ddd;
+}
 
 .parent {
     display: table
 }
+
 .child {
     color: #fff;
     display: table-cell;
@@ -94,7 +100,6 @@ h1, h2, h3 {
 
 .center {
     width: 60%;
-
 }
 
 .button {
@@ -113,6 +118,10 @@ h1, h2, h3 {
     width: 142px;
 }
 
+:disabled {
+   background-color:grey;
+}
+
 .button:hover {
     background-color: #348700;
 }
@@ -125,4 +134,3 @@ h1, h2, h3 {
 .row-buttons {
     display: inline;
 }
-
