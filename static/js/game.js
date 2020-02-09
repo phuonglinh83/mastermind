@@ -2,11 +2,13 @@ function selectGame(num_code) {
     $.post('/new_game2',
         {num_code:num_code},
         function(data, status) {
-            console.log(data);
             var gameinfo = JSON.parse(data);
-            $('#gameid').val(gameinfo.gameid);
-            $('input[name="num_codes"]').attr("disabled", false)
-            render_game(gameinfo, true);
+            $(location).attr('href', '/game/' + gameinfo.gameid);
+//            console.log(data);
+//            var gameinfo = JSON.parse(data);
+//            $('#gameid').val(gameinfo.gameid);
+//            $('input[name="num_codes"]').attr("disabled", false)
+//            render_game(gameinfo);
         });
 }
 
@@ -29,7 +31,7 @@ function getHint() {
             code_length = gameinfo.secret_code.length
             random_hint_index = Math.floor(Math.random() * code_length);
             setInput(random_hint_index + 1, gameinfo.secret_code[random_hint_index], code_length)
-            $('#get_hint').attr("disabled", true)
+//            $('#get_hint').attr("disabled", true)
         });
 }
 
@@ -78,10 +80,13 @@ color_map = {
     "7": "teal"
 }
 
-function render_game(gameinfo, redirect) {
-    if (redirect && (gameinfo.status == 'WIN' || gameinfo.status == 'LOOSE')) {
+function render_game(gameinfo) {
+    // Do not redirect if we are already in result page, otherwise, we have recursive reloading
+    if (!$(location).attr('href').includes("/result") && (gameinfo.status == 'WIN' || gameinfo.status == 'LOOSE')) {
         $(location).attr('href', '/result?gameid=' + gameinfo.gameid); //redirect to results page
     }
+
+    expiredTime = new Date(gameinfo.expired).getTime();
 
     // Disable guess button
 //    $("#guess").attr("disabled", true);
@@ -167,8 +172,8 @@ function setInput(index, code, num_codes) {
     $("#cell_0_" + index).html(code);
     $("#cell_0_" + index).css("background-color", color_map[code]);
 
-//    $("#code" + index).html(code);
-//    $("#code" + index).css("background-color", color_map[code]);
+    $("#code" + index).html(code);
+    $("#code" + index).css("background-color", color_map[code]);
 
     // Check if we can enable guess button
     var enabled = true;
@@ -190,9 +195,37 @@ function setInput(index, code, num_codes) {
 
 $(document).ready(function(){
   gameid = $("#gameid").val();
+  interval = setInterval(timer, 1000);
   $.get("/gameinfo/" + gameid,
         function(data, status) {
             var gameinfo = JSON.parse(data);
-            render_game(gameinfo, false);
+            render_game(gameinfo);
         });
 });
+
+var expiredTime = new Date("Feb 8, 2021 16:46:25").getTime();
+var interval = null;
+var timer = function() {
+    // Get today's date and time
+    var now = new Date().getTime();
+    // Find the distance between now and the count down date
+    var distance = expiredTime - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Output the result in an element with id="demo"
+    $("#timer").html("Remaining time: " + minutes + "m " + seconds + "s ");
+
+    // If the count down is over, write some text
+    if (distance < 0) {
+        clearInterval(interval);
+        $("#timer").html("EXPIRED");
+        gameid = $("#gameid").val();
+        $.post('/timeout/' + gameid, function(data, status) {
+            var gameinfo = JSON.parse(data);
+            render_game(gameinfo);
+        })
+    }
+}

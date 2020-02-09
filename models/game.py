@@ -1,5 +1,7 @@
+from datetime import datetime
+from datetime import timedelta
+
 from app import db
-from models import guess
 import urllib.request
 
 
@@ -11,6 +13,7 @@ class Game(db.Model):
     secret_code = db.Column(db.String())
     max_guess = db.Column(db.Integer)
     status = db.Column(db.String())
+    expired = db.Column(db.String())
 
 
     @classmethod
@@ -26,14 +29,15 @@ class Game(db.Model):
         self.status = 'CREATED'
         contents = urllib.request.urlopen("https://www.random.org/integers/?num=" + str(num_code)
                                           + "&min=0&max=7&col=1&base=10&format=plain&rnd=new").read()
-        print ("AAAAAAAAAA", contents)
         codes = [i for i in str(contents) if i.isdigit()]
         # codes = ['1', '2', '1', '2']
         #
         # for i in range(num_code):
         #     codes.append(str(i + 1))
         self.secret_code = "".join(codes)
-        print("AAAAAAAAAA", codes)
+        now = datetime.now()
+        self.expired = str(now + timedelta(seconds=1800, microseconds=-now.microsecond))
+
 
     def __repr__(self):
         return '<gameid {}>'.format(self.gameid)
@@ -45,6 +49,7 @@ class Game(db.Model):
             'secret_code': self.secret_code,
             'max_guess': self.max_guess,
             'status': self.status,
+            'expired': self.expired
         }
     #
     # def game_over(self):

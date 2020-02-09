@@ -1,78 +1,58 @@
 
 <html>
    <head>
-      <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/firework.css') }}">-->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/firework.css') }}">
       <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">-->
       <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
       <script type = "text/javascript"
          src = "{{ url_for('static', filename = 'js/game.js') }}" ></script>
    </head>
+
+
    <body>
    <input id="gameid" type="hidden" name="gameid" value={{ gameid }}>
+
    <div class="content">
-      <!--{% if number_of_player == 1 %}-->
-      <!--<ul>-->
-         <!--<li style="float:left"><a class="active" href="/">HANGMAN HOME </a></li>-->
-         <!--<li><a href="/easy">EASY</a></li>-->
-         <!--<li><a href="/medium">MEDIUM</a></li>-->
-         <!--<li><a href="/hard">HARD</a></li>-->
-         <!--<li style="float:right"><a href="/score">SCORES</a></li>-->
-      <!--</ul>-->
-      <!--{% endif %}-->
+
 
       <p>
       <h1 style="color:red">{{ result_message }}</h1>
       </p>
 
-      <!--{% if number_of_player == 1 %}-->
-      <!--<p>-->
-      <!--<form action = "/replay" method = "get">-->
-         <!--<input class="button" type = "submit" value = "Play again" />-->
-      <!--</form>-->
-      <!--</p>-->
-      <!--{% endif %}-->
-
-      <!--{% if number_of_player == 2 %}-->
-      <!--<p>-->
-      <!--<form action = "/" method = "get">-->
-         <!--<input class="button" type = "submit" value = "Play again" />-->
-      <!--</form>-->
-      <!--</p>-->
-      <!--</p>-->
-      <!--{% endif %}-->
-
-
    </div>
 
-      <!--{% if "Congratulations!" in result_message %}-->
-      <!--<div id="before"></div>-->
-      <!--<div id="after"></div>-->
-      <!--<div id="astar1"/></div>-->
-      <!--<div id="astar2"/></div>-->
-      <!--<div id="astar3"/></div>-->
-      <!--<div id="astar4"/></div>-->
-      <!--<div id="astar5"/></div>-->
-      <!--<div id="astar6"/></div>-->
-      <!--<div id="astar7"/></div>-->
-      <!--<div id="astar8"/></div>-->
-      <!--<div id="astar9"/></div>-->
-      <!--<div id="astar10"/></div>-->
-
-      <!--<div id="bstar1"/></div>-->
-      <!--<div id="bstar2"/></div>-->
-      <!--<div id="bstar3"/></div>-->
-      <!--<div id="bstar4"/></div>-->
-      <!--<div id="bstar5"/></div>-->
-      <!--<div id="bstar6"/></div>-->
-      <!--<div id="bstar7"/></div>-->
-      <!--<div id="bstar8"/></div>-->
-      <!--<div id="bstar9"/></div>-->
-      <!--<div id="bstar10"/></div>-->
-      <!--{% endif %}-->
    <div>
-   <table id="history" class="mastermindtable" align="center"/>
+   <table id="history" class="mastermindtable" align="center"/></table>
    </div>
+
+   {% if "Congratulations!" in result_message %}
+      <div id="before"></div>
+      <div id="after"></div>
+      <div id="astar1"/></div>
+      <div id="astar2"/></div>
+      <div id="astar3"/></div>
+      <div id="astar4"/></div>
+      <div id="astar5"/></div>
+      <div id="astar6"/></div>
+      <div id="astar7"/></div>
+      <div id="astar8"/></div>
+      <div id="astar9"/></div>
+      <div id="astar10"/></div>
+
+      <div id="bstar1"/></div>
+      <div id="bstar2"/></div>
+      <div id="bstar3"/></div>
+      <div id="bstar4"/></div>
+      <div id="bstar5"/></div>
+      <div id="bstar6"/></div>
+      <div id="bstar7"/></div>
+      <div id="bstar8"/></div>
+      <div id="bstar9"/></div>
+      <div id="bstar10"/></div>
+      {% endif %}
+
+
 
 
 

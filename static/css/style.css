@@ -21,7 +21,7 @@ body
 .mastermindtable {
   font-family: Arial, sans-serif;
   border-collapse: collapse;
-  width: 60%;
+  width: 100%;
 }
 
 .mastermindtable td, .mastermindtable th {
@@ -31,7 +31,11 @@ body
 }
 
 .mastermindtable tr td:first-child {
-  width: 120px;
+  width: 10%;
+}
+
+.mastermindtable tr th:last-child {
+  width: 20%;
 }
 
 .mastermindtable td:hover {border: 3px solid #ddd;}
@@ -46,8 +50,12 @@ body
 .colortab {
   font-family: Arial, sans-serif;
   border-collapse: collapse;
-  width: 40%;
+  width: 78%;
   table-layout: fixed;
+}
+
+.firsttab {
+    padding-left: 11%;
 }
 
 .colortab td, .colortab th {
@@ -93,7 +101,47 @@ button[disabled]{
   pointer-events: none;
 }
 
-div {
-  padding: 5px 10px;
+.parent {
+  display: table
+}
+.child {
+    color: #fff;
+    display: table-cell;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.left .right {
+  width: 20%;
+}
+
+.center {
+  width: 60%;
+
+}
+
+.button {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 5px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 80%;
+}
+
+.button:hover {
+    background-color: #348700;
+}
+
+.radio-group {
+    left: 10%;
+    padding: 5px 12px;
 }
 

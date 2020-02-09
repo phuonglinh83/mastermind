@@ -139,6 +139,13 @@ def score():
     users.sort(key=lambda user: -user.wins)
     return render_template('score.html', users=users)
 
+@app.route('/timeout/<gameid>', methods=['POST'])
+def timeout(gameid):
+    game = Game.query.filter_by(gameid=gameid).first()
+    game.status = "LOOSE"
+    db.session.commit()
+    return redirect('/gameinfo/' + str(game.gameid))
+
 @app.route("/user/<userid>")
 def get_user(userid):
     user = User.query.filter_by(userid=int(userid)).first()
