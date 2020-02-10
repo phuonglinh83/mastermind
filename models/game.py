@@ -17,20 +17,23 @@ class Game(db.Model):
 
 
     @classmethod
-    def new_game(cls, userid, max_guess = 10, num_code=4):
-        game = cls(userid, max_guess, num_code)  # create game object
+    def new_game(cls, userid, max_guess = 10, num_code=4, secret_code=''):
+        game = cls(userid, max_guess, num_code, secret_code)  # create game object
         db.session.add(game)
         db.session.commit()
         return game
 
-    def __init__(self, userid, max_guess, num_code):
+    def __init__(self, userid, max_guess, num_code, secret_code):
         self.userid = userid
         self.max_guess = max_guess
         self.status = 'CREATED'
-        contents = urllib.request.urlopen("https://www.random.org/integers/?num=" + str(num_code)
+        if secret_code == '':
+            contents = urllib.request.urlopen("https://www.random.org/integers/?num=" + str(num_code)
                                           + "&min=0&max=7&col=1&base=10&format=plain&rnd=new").read()
-        codes = [i for i in str(contents) if i.isdigit()]
-        self.secret_code = "".join(codes)
+            codes = [i for i in str(contents) if i.isdigit()]
+            self.secret_code = "".join(codes)
+        else:
+            self.secret_code=secret_code
         now = datetime.now()
         self.expired = str(now + timedelta(seconds=1800, microseconds=-now.microsecond))
 

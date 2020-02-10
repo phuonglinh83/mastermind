@@ -40,7 +40,9 @@ var timer = function() {
 // Creates a game with a given number of codes
 function createGame(num_code) {
     $.post('/new_game2',
-        {num_code:num_code},
+        {
+            num_code:num_code
+        },
         function(data, status) {
             $(location).attr('href', '/game/' + data);
         });
@@ -72,6 +74,24 @@ function getHint() {
         });
 }
 
+
+function player1Create() {
+    var secret_code = "";
+    num_codes = $("#colorinput").children('tbody').children('tr').children('td').length;
+    for (var i = 1; i < num_codes + 1; i++) {
+        secret_code += $('#code' + i).html()
+    }
+    $.post('/new_game3',
+        {
+            secret_code:secret_code
+        },
+        function(data, status) {
+            $(location).attr('href', '/game/' + data);
+        });
+}
+
+
+
 // Sends a guess to server and re-render the page with the response from server
 function submitGuess() {
     $('input[name="num_codes"]').attr("disabled", true)
@@ -98,6 +118,33 @@ function gameSize() {
     return $("#history").children('tbody').children('tr').children('th').length - 2;
 }
 
+// Render color table and input row
+function renderInput(num_codes) {
+// Render color table
+    var jsFunc = "setInput";
+    if ($(location).attr('href').includes("/player1codes")) {
+        jsFunc = "setInput2";
+    }
+
+    $("#colortable").html("");
+    for (const [code, color] of Object.entries(color_map)) {
+        var color_row = "<tr>";
+        for (var i = 0; i < num_codes; i++) {
+            color_row += `<td onclick="${jsFunc}(${i+1}, ${code}, ${num_codes})" bgcolor=${color}> ${code} </td>`;
+        }
+        color_row += "</tr>";
+        $("#colortable").append(color_row);
+    }
+// Render input row
+    color_input = "<tr>";
+    for (var i = 0; i < num_codes; i++) {
+        color_input += `<td id="code${i+1}"> </td>`;
+    }
+    color_input += "</tr>";
+    $("#colorinput").html(color_input);
+}
+
+
 // Renders the game page with the given gameinfo object from the server
 function render_game(gameinfo) {
     // Do not redirect if we are already in result page, otherwise, we have recursive reloading
@@ -111,16 +158,9 @@ function render_game(gameinfo) {
     // Check the right radio button corresponding to the number of codes of the game
     $("#" + gameinfo.num_codes + "_codes").attr("checked", true);
 
-    // Render color table
-    $("#colortable").html("");
-    for (const [code, color] of Object.entries(color_map)) {
-        var color_row = "<tr>";
-        for (var i = 0; i < gameinfo.num_codes; i++) {
-            color_row += `<td onclick="setInput(${i+1}, ${code}, ${gameinfo.num_codes})" bgcolor=${color}> ${code} </td>`;
-        }
-        color_row += "</tr>";
-        $("#colortable").append(color_row);
-    }
+
+    renderInput(gameinfo.num_codes);
+
 
     // Render history table
     var header = '<tr> <th> Guess No</th>';
@@ -158,6 +198,25 @@ function render_game(gameinfo) {
         }
         rowToAppend += "</tr>";
          $("#history").append(rowToAppend);
+    }
+}
+
+// Sets the input column defined by an index with a given code
+function setInput2(index, code, num_codes) {
+    $("#code" + index).html(code);
+    $("#code" + index).css("background-color", color_map[code]);
+
+    // Check if we can enable guess button
+    var enabled = true;
+    for (var i = 1; i < num_codes + 1; i++) {
+        if ($.trim($("#code" + i).html()) == '') { // check if the cell is empty
+            enabled = false;
+            break;
+        }
+     }
+
+    if (enabled) {
+        $('#player1create').attr("disabled", false)
     }
 }
 

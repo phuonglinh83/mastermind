@@ -12,38 +12,42 @@
 
        <div class="container">
             <div class="left child">
-                <button class="button" id="new_game" onclick="newGame()" > New Game </button>
-                <br>
+                <h4> Select number of digits </h4>
                 <div class="radio-group">
                     <input id="2_codes" name="num_codes" class="radio" type="radio" value="2"
-                           onclick="createGame(2)">2 columns <br>
+                           onclick="renderInput(2)">2 digits <br>
                     <input id="3_codes" name="num_codes" class="radio" type="radio" value="3"
-                           onclick="createGame(3)">3 columns <br>
+                           onclick="renderInput(3)">3 digits <br>
                     <input id="4_codes" name="num_codes" class="radio" type="radio" value="4"
-                           onclick="createGame(4)">4 columns <br>
+                           onclick="renderInput(4)">4 digits <br>
                     <input id="5_codes" name="num_codes" class="radio" type="radio" value="5"
-                           onclick="createGame(5)">5 columns <br>
+                           onclick="renderInput(5)">5 digits <br>
                     <input id="6_codes" name="num_codes" class="radio" type="radio" value="6"
-                           onclick="createGame(6)">6 columns <br>
+                           onclick="renderInput(6)">6 digits <br>
                     <input id="7_codes" name="num_codes" class="radio" type="radio" value="7"
-                           onclick="createGame(7)">7 columns <br>
+                           onclick="renderInput(7)">7 digits <br>
                 </div>
-
-
-                <br>
-                <button class="button" id="play_random" onclick="playRandom()" > Play Random Codes </button>
-                <br>  <br>
-                <button class="button" id="get_hint" onclick="getHint()" > Get Hint </button>
             </div>
 
             <div class="center child">
                 <div class="firsttab">
                     <table id="colortable" class="colortab"> </table>
                 </div>
+
                 <br>
-                <div id="timer" style="color:red" align="center">Remaining time: </div>
-                <br>
-                <table id="history" class="mastermindtable"> </table>
+                <h3> Select a secret code: </h3>
+
+                <div class="firsttab">
+                    <table id="colorinput" class="colortab"> </table>
+                </div>
+
+                 <!--<form action = "/new_game3" method = "get">-->
+                <!--<p><input class="button" type = "submit" value = "Create a game" /></p>-->
+                <!--</form>-->
+
+                <button class="button" id="player1create" onclick="player1Create()" disabled > Create a Game </button>
+
+
             </div>
 
            <div class="right child">
@@ -54,11 +58,6 @@
                 <form action = "/logout" method = "get">
                 <p><input class="button" type = "submit" value = "Log out" /></p>
                 </form>
-
-               <form action = "/player1codes" method = "get">
-                     <p><input class="button" type = "submit" value = "2 players" /></p>
-                </form>
-
            </div>
         </div>
     </body>

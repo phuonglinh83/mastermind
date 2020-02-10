@@ -36,6 +36,7 @@ def logout():
 @app.route('/new_game', methods=['GET'])
 def new_game():
     userid = request.cookies.get('userid')
+    print(request.cookies)
     game = Game.new_game(userid=userid)
     return redirect('/game/' + str(game.gameid))
 
@@ -48,6 +49,19 @@ def new_game2():
     print("AAAA:" + num_code)
     game = Game.new_game(userid=userid, num_code=num_code)
     return str(game.gameid)
+
+@app.route('/new_game3', methods=['POST'])
+def new_game3():
+    userid = request.cookies.get('userid')
+    secret_code = request.form['secret_code']
+    print("BBB" + secret_code)
+    game = Game.new_game(userid=userid, secret_code=secret_code)
+    return str(game.gameid)
+
+@app.route('/player1codes', methods=['GET'])
+def player1_enters_codes():
+    return render_template("player1codes.html")
+
 
 
 # Returns the game html page page
