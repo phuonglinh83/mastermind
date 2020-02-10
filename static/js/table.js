@@ -9,20 +9,6 @@ color_map = {
     "7": "teal"
 }
 
-// Creates a game with a given number of codes
-function createGame(num_code) {
-    $.post('/new_game2',
-        {num_code:num_code},
-        function(data, status) {
-            $(location).attr('href', '/game/' + data);
-        });
-}
-
-// Creates a new game with the same number of codes as the current game
-function newGame() {
-    return createGame(gameSize());
-}
-
 // Returns number of codes in the game
 function gameSize() {
     return $("#history").children('tbody').children('tr').children('th').length - 2;
@@ -34,9 +20,6 @@ function renderGame(gameinfo) {
     if (!$(location).attr('href').includes("/result") && (gameinfo.status == 'WIN' || gameinfo.status == 'LOOSE')) {
         $(location).attr('href', '/result?gameid=' + gameinfo.gameid); //redirect to results page
     }
-
-    // Set expired time for the timer with the given expired time from game info
-    expiredTime = new Date(gameinfo.expired).getTime();
 
     // Check the right radio button corresponding to the number of codes of the game
     $("#" + gameinfo.num_codes + "_codes").attr("checked", true);
@@ -101,7 +84,7 @@ function renderHistory(gameinfo) {
     for (var i = 0; i < gameinfo.max_guess - gameinfo.guesses.length; i++) {
         var rowToAppend = `<tr> <td> ${i + 1 + gameinfo.guesses.length} </td>`;
         for (var j = 0; j < 2 * gameinfo.num_codes; j++) {
-            rowToAppend += `<td id='cell_${i}_${j+1}'> </td>`;
+            rowToAppend += '<td> </td>';
         }
         rowToAppend += "</tr>";
          $("#history").append(rowToAppend);

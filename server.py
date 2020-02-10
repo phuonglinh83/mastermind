@@ -20,6 +20,7 @@ def login():
     user = User.query.filter_by(username=name).first()
     if not user:
         user = User.new_user(name)
+
     resp = make_response(redirect("/new_game"))
     resp.set_cookie('userid', str(user.userid))
     return resp
@@ -45,7 +46,6 @@ def new_game():
 def new_game2():
     userid = request.cookies.get('userid')
     num_code = request.form['num_code']
-    print("AAAA:" + num_code)
     game = Game.new_game(userid=userid, num_code=num_code)
     return str(game.gameid)
 
@@ -113,22 +113,6 @@ def scores():
 @app.route('/score', methods=['GET'])
 def score():
     return render_template('score.html')
-
-
-@app.route('/timeout/<gameid>', methods=['POST'])
-def timeout(gameid):
-    game = Game.query.filter_by(gameid=gameid).first()
-    if game.status == 'CREATERD':
-        game.status = "LOOSE"
-        db.session.commit()
-    return redirect('/gameinfo/' + str(game.gameid))
-
-
-@app.route("/user/<userid>")
-def get_user(userid):
-    user = User.query.filter_by(userid=int(userid)).first()
-    return user.serialize()
-
 
 if __name__ == '__main__':
     app.run()

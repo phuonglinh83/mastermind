@@ -1,29 +1,15 @@
-var expiredTime = null; // Global variable for setting expired time for the timer
-var interval = null; // Global variable for the timer
+// Creates a game with a given number of codes
+function createGame(num_code) {
+    $.post('/new_game2',
+        {num_code:num_code},
+        function(data, status) {
+            $(location).attr('href', '/game/' + data);
+        });
+}
 
-var timer = function() {
-    // Get today's date and time
-    var now = new Date().getTime();
-    // Find the distance between now and the count down date
-    var distance = expiredTime - now;
-
-    // Time calculations for days, hours, minutes and seconds
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Output the result in an element with id="demo"
-    $("#timer").html("Remaining time: " + minutes + "m " + seconds + "s ");
-
-    // If the count down is over, write some text
-    if (distance < 0) {
-        clearInterval(interval);
-        $("#timer").html("EXPIRED");
-        gameid = $("#gameid").val();
-        $.post('/timeout/' + gameid, function(data, status) {
-            var gameinfo = JSON.parse(data);
-            renderGame(gameinfo);
-        })
-    }
+// Creates a new game with the same number of codes as the current game
+function newGame() {
+    return createGame(gameSize());
 }
 
 // Plays game with a list of random codes
@@ -92,7 +78,6 @@ function setInput(index, code, num_codes) {
 
 $(document).ready(function(){
   gameid = $("#gameid").val();
-  interval = setInterval(timer, 1000);
   $.get("/gameinfo/" + gameid,
         function(data, status) {
             var gameinfo = JSON.parse(data);
